@@ -16,7 +16,7 @@ dotenv.config();
 const SignIn = () => {
   const [nameOrEmail, setNameOrEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const login = useAuthStore((state: { login: any; }) => state.login);
+  const login = useAuthStore((state) => state.login);
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +43,7 @@ const SignIn = () => {
       if (user.role) {
         router.push(`/${user.role}`);
       }
-    } catch (error: any) {
+    } catch (error) {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
@@ -59,7 +59,7 @@ const SignIn = () => {
           src={BackgroundImage}
           alt="Background"
          fill
-           style={{ objectFit: "cover" }}
+          objectFit="cover"
           className="opacity-40"
         />
       </div>
