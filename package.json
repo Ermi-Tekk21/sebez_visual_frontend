@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "mockdb": "json-server --watch public/mockdb.json --port 7001",
+    "dev": "concurrently --kill-others  \"json-server --watch public/mockdb.json --port 7001\"   \"next dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
