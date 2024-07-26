@@ -1,0 +1,22 @@
+# Dependency directories
+node_modules/
+
+# Build outputs
+.next/
+
+# Log files
+npm-debug.log
+yarn-debug.log*
+yarn-error.log*
+
+# Local environment variables
+.env
+# Lock files (optional, but typically included)
+package-lock.json
+pnpm-lock.yaml
+
+# Miscellaneous
+.DS_Store
+.vscode/
+.idea/
+*.swp
