@@ -66,12 +66,16 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center bg-gray-900 p-24">
       <div className="bg-white shadow-lg rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 mt-20">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 ">
           Order Summary
         </h2>
-        <div className="h-[500px] overflow-y-auto pe-3">
+        <div className="mt-6 bg-gray-800 text-white rounded-lg p-4 flex justify-between items-center">
+          <h4 className="text-lg font-bold">Total price</h4>
+          <span className="text-xl font-semibold animate-pulse">{totalSum} ETB</span>
+        </div>
+        <div className="h-[400px] overflow-y-auto pe-3">
           {/* {cart.checkout.map((product) => ( */}
 
           {cart.checkout.map(
@@ -151,11 +155,8 @@ export default function CheckoutPage() {
           )}
         </div>
       </div>
-      <div className="bg-white shadow-lg rounded-lg p-6 mt-10 justify-center items-center m-auto align-center">
-        <div className="mt-6 bg-gray-800 text-white rounded-lg p-4 flex justify-between items-center">
-          <h4 className="text-lg font-bold">Total price</h4>
-          <span className="text-xl font-semibold">{totalSum} ETB</span>
-        </div>
+      <div className="bg-white shadow-lg rounded-lg p-6 justify-center items-center m-auto align-center">
+       
         <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-6">
           Complete your order
         </h2>

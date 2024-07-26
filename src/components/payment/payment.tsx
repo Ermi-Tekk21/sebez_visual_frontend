@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 interface AcceptPaymentProps {
   firstName: string;
@@ -26,6 +26,9 @@ const AcceptPayment: React.FC<AcceptPaymentProps> = ({
   zipCode,
   txRef,
 }) => {
+  const baseUrl = window.location.origin; // Get the base URL of the current location
+  const returnUrl = `${baseUrl}/user/checkout/transaction-result`; // Construct the return URL
+
   return (
     <>
       <input type="hidden" name="public_key" value="CHAPUBK_TEST-ownPiYcgHzrXrdD2immKKQfuF3MgCZna" />
@@ -44,7 +47,7 @@ const AcceptPayment: React.FC<AcceptPaymentProps> = ({
       <input type="hidden" name="description" value="Paying with Confidence with cha" />
       <input type="hidden" name="logo" value="https://chapa.link/asset/images/chapa_swirl.svg" />
       <input type="hidden" name="callback_url" value="https://example.com/callbackurl" />
-      <input type="hidden" name="return_url" value="http://localhost:3000/user/checkout/transaction-result" />
+      <input type="hidden" name="return_url" value={returnUrl} />
       <input type="hidden" name="meta[title]" value="test" />
     </>
   );
