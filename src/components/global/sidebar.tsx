@@ -62,16 +62,12 @@ const Sidebar: React.FC = () => {
     fetchUserData();
   }, [currentTime, logout, router]);
 
-
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
   };
 
   const isAdmin = userData.role === "admin";
-  const isUserListRoute = pathname.includes("admin/users");
-  const isGetProductListRoute = pathname.includes("admin/getProducts");
-  const isAddProductListRoute = pathname.includes("/admin/products");
-  const isProfileRoute = pathname.includes("/admin/Profile");
+  const basePath = pathname.split('/')[1]; // Get the base route (e.g., 'admin' or 'artist')
 
   return (
     <div
@@ -90,12 +86,12 @@ const Sidebar: React.FC = () => {
       <div className="flex flex-col items-center mt-4 space-y-4">
         {isAdmin && (
           <div>
-            <Link href="/admin/users" legacyBehavior>
+            <Link href={`/${basePath}/users`} legacyBehavior>
               <a className="text-white ">
                 {isExpanded ? (
                   <div
                     className={`bordered shadow-md rounded-md px-3 border-[1px] ${
-                      isUserListRoute && "bg-white text-blue-950"
+                      pathname.includes(`${basePath}/users`) && "bg-white text-blue-950"
                     }`}
                   >
                     Get Users
@@ -103,7 +99,7 @@ const Sidebar: React.FC = () => {
                 ) : (
                   <div
                     className={`bg-white rounded-full p-1 hover:p-2 ${
-                      isUserListRoute && "bg-slate-500 p-3"
+                      pathname.includes(`${basePath}/users`) && "bg-slate-500 p-3"
                     }`}
                   >
                     <Image
@@ -118,12 +114,12 @@ const Sidebar: React.FC = () => {
           </div>
         )}
 
-        <Link href="/admin/products" legacyBehavior>
+        <Link href={`/${basePath}/products`} legacyBehavior>
           <a className="text-white">
             {isExpanded ? (
               <div
                 className={`bordered shadow-md rounded-md px-3 border-[1px] ${
-                  isAddProductListRoute && "bg-white text-blue-950"
+                  pathname.includes(`${basePath}/products`) && "bg-white text-blue-950"
                 }`}
               >
                 Add Products
@@ -131,7 +127,7 @@ const Sidebar: React.FC = () => {
             ) : (
               <div
                 className={`bg-white rounded-full p-1 hover:p-2 ${
-                  isAddProductListRoute && "bg-slate-500 p-3"
+                  pathname.includes(`${basePath}/products`) && "bg-slate-500 p-3"
                 }`}
               >
                 <Image
@@ -146,12 +142,12 @@ const Sidebar: React.FC = () => {
 
         {isAdmin && (
           <div>
-            <Link href="/admin/getProducts" legacyBehavior>
+            <Link href={`/${basePath}/getProducts`} legacyBehavior>
               <a className="text-white">
                 {isExpanded ? (
                   <div
                     className={`bordered shadow-md rounded-md px-3 border-[1px] ${
-                      isGetProductListRoute && "bg-white text-blue-950"
+                      pathname.includes(`${basePath}/getProducts`) && "bg-white text-blue-950"
                     }`}
                   >
                     Get Products
@@ -159,7 +155,7 @@ const Sidebar: React.FC = () => {
                 ) : (
                   <div
                     className={`bg-white rounded-full p-1 hover:p-2 ${
-                      isGetProductListRoute && "bg-slate-500 p-3"
+                      pathname.includes(`${basePath}/getProducts`) && "bg-slate-500 p-3"
                     }`}
                   >
                     <Image
@@ -174,12 +170,12 @@ const Sidebar: React.FC = () => {
           </div>
         )}
 
-        <Link href="/admin/Profile" legacyBehavior>
+        <Link href={`/${basePath}/Profile`} legacyBehavior>
           <a className="text-white">
             {isExpanded ? (
               <div
                 className={`bordered shadow-md rounded-md px-3 border-[1px] ${
-                  isProfileRoute && "bg-white text-blue-950"
+                  pathname.includes(`${basePath}/Profile`) && "bg-white text-blue-950"
                 }`}
               >
                 Profile
@@ -187,7 +183,7 @@ const Sidebar: React.FC = () => {
             ) : (
               <div
                 className={`bg-white rounded-full p-1 hover:p-2 ${
-                  isProfileRoute && "bg-slate-500 p-3"
+                  pathname.includes(`${basePath}/Profile`) && "bg-slate-500 p-3"
                 }`}
               >
                 <Image
