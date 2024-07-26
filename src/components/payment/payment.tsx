@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface AcceptPaymentProps {
   firstName: string;
@@ -26,8 +26,14 @@ const AcceptPayment: React.FC<AcceptPaymentProps> = ({
   zipCode,
   txRef,
 }) => {
-  const baseUrl = window.location.origin; // Get the base URL of the current location
-  const returnUrl = `${baseUrl}/user/checkout/transaction-result`; // Construct the return URL
+  const [returnUrl, setReturnUrl] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const baseUrl = window.location.origin;
+      setReturnUrl(`${baseUrl}/user/checkout/transaction-result`);
+    }
+  }, []);
 
   return (
     <>
