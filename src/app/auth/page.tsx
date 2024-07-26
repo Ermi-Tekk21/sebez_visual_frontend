@@ -4,7 +4,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import { toast } from "@/components/ui/use-toast";
-import BackgroundImage from "../../../../public/assets/images/hero.jpg";
 import Cookies from 'js-cookie';
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -54,15 +53,6 @@ const SignIn = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-900">
-      <div className="absolute inset-0">
-        <Image
-          src={BackgroundImage}
-          alt="Background"
-         fill
-          objectFit="cover"
-          className="opacity-40"
-        />
-      </div>
       <div className="w-full max-w-md p-8 space-y-6 z-10 opacity-85 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold text-center">Sign In</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
