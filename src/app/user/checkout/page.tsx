@@ -66,8 +66,8 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="flex gap-2 items-center bg-gray-900 p-24">
-      <div className="bg-white shadow-lg rounded-lg p-6">
+    <div className="flex max-sm:flex-col gap-2 items-center bg-gray-900 sm:p-24">
+      <div className="bg-white shadow-lg rounded-lg max-sm:p-11 sm:p-6 max-sm:mt-24">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 ">
           Order Summary
         </h2>
@@ -155,7 +155,7 @@ export default function CheckoutPage() {
           )}
         </div>
       </div>
-      <div className="bg-white shadow-lg rounded-lg p-6 justify-center items-center m-auto align-center">
+      <div className="bg-white shadow-lg rounded-lg p-12 justify-center items-center m-auto align-center">
        
         <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-6">
           Complete your order

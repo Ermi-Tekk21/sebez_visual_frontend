@@ -4,7 +4,10 @@ import { useRouter } from "next/navigation";
 import useAuthStore from "@/stores/AuthStore";
 import ProductPage from "@/components/landingPage/product-page";
 import axios from "axios";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
+import LandingPage from "@/components/landingPage/landing-page";
+import AboutUsPage from "@/components/landingPage/about-us";
+import ContactUsPage from "@/components/landingPage/contact-us";
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -49,8 +52,12 @@ const UserPage = () => {
   }, [userData, isAuthenticated, router, logout]);
 
   return (
-    <div className="mt-20">
+    <div>
+      <LandingPage />
       <ProductPage />
+      <hr />
+      <AboutUsPage />
+      <ContactUsPage />
     </div>
   );
 };

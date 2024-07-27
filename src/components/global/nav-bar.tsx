@@ -6,6 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import useAuthStore from "@/stores/AuthStore";
 import Cart from "./cart";
+import Menu from "../../../public/assets/icons/menu.svg";
+import CloseMenu from "../../../public/assets/icons/close.svg";
 import { useRouter } from "next/navigation";
 import ProductDetail from "./product_detail";
 const dotenv = require("dotenv");
@@ -34,6 +36,7 @@ const NavBar: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product>(
     {} as Product
   );
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const logout = useAuthStore((state) => state.logout);
@@ -42,7 +45,6 @@ const NavBar: React.FC = () => {
   const isHome = pathname === "/";
   const isSignupRoute = pathname.includes("/auth/signup");
   const isAuthRoute = pathname.includes("/auth");
-  const isArtist = pathname.includes("/artist");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -123,29 +125,33 @@ const NavBar: React.FC = () => {
 
   return (
     <main>
-      {!isArtist && (
-        <div
-          className={`${
-            showNav ? "translate-y-0" : "-translate-y-full"
-          } bg-custom-green-a shadow-md flex items-center justify-around pt-4 pb-4 font-semibold z-40 fixed w-full top-0 transition-transform duration-300 ease-in-out `}
-        >
-          <div className="absolute inset-0">
-            <Image
-              src={navBG}
-              alt="Background"
-              fill
-              style={{ objectFit: "cover" }}
-              className="opacity-10 z-0"
-            />
-          </div>
+      <div
+        className={`${
+          showNav ? "translate-y-0" : "-translate-y-full"
+        } bg-custom-green-a shadow-md flex flex-col font-semibold z-40 fixed w-full top-0 transition-transform duration-300 ease-in-out `}
+      >
+        <div className="flex items-center justify-around pt-4 pb-4">
           <Link href="/">
             <div className="cursor-pointer">
               <Image src={Logo} alt="Sebez Logo" width={130} height={80} />
             </div>
           </Link>
 
+          {isAuthenticated && (
+            <div className="max-sm:hidden cursor-pointer list-none flex justify-around gap-16 opacity-70">
+              <nav className="hover:text-custom-green-d hover:underline">
+                <Link href="/user">Home</Link>
+              </nav>
+              <nav className="hover:text-custom-green-d hover:underline">
+                <Link href="/user/#about-us">About Us</Link>
+              </nav>
+              <nav className="hover:text-custom-green-d hover:underline">
+                <Link href="/user/#product">Products</Link>
+              </nav>
+            </div>
+          )}
           {!isAuthenticated && (
-            <div className="cursor-pointer list-none flex justify-around gap-16 opacity-70">
+            <div className="max-sm:hidden cursor-pointer list-none flex justify-around gap-16 opacity-70">
               <nav className="hover:text-custom-green-d hover:underline">
                 <Link href="/">Home</Link>
               </nav>
@@ -160,19 +166,18 @@ const NavBar: React.FC = () => {
               </nav>
             </div>
           )}
-
           <div className="flex gap-10 cursor-pointer z-40">
             {!isSignupRoute && !isAuthRoute && (
               <div onClick={handleProductsClick}>
                 <input
                   type="text"
                   placeholder="Search products"
-                  className="px-2 py-1 rounded border border-green-400"
+                  className="px-2 py-1 max-sm:w-36 rounded border border-green-400"
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
                 {isProductsDropdownOpen && (
-                  <div className="absolute top-14 z-10 right-0 bg-white border border-gray-300 shadow-md h-96 overflow-y-scroll">
+                  <div className="absolute top-16 z-10 right-0 bg-white border border-gray-300 shadow-md overflow-y-scroll">
                     <h3 className="bg-gray-600 text-white p-4 sticky top-0">
                       Product Categories
                     </h3>
@@ -192,7 +197,7 @@ const NavBar: React.FC = () => {
               </div>
             )}
             {isAuthenticated && <Cart />}
-            <nav className="flex gap-8 align-center">
+            <nav className="flex max-sm:hidden gap-8 align-center transition-all duration-300">
               {isAuthenticated ? (
                 <button
                   onClick={() => {
@@ -230,7 +235,152 @@ const NavBar: React.FC = () => {
                 </div>
               )}
             </nav>
+            <button
+              onClick={() => setIsMenuOpen(true)}
+              className="z-50 mr-6 sm:hidden"
+            >
+              <Image src={Menu} alt="menu" width={30} height={30} />
+            </button>
           </div>
+        </div>
+        <div className="absolute inset-0">
+          <Image
+            src={navBG}
+            alt="Background"
+            fill
+            style={{ objectFit: "cover" }}
+            className="opacity-10 z-0"
+          />
+        </div>
+      </div>
+      {isAuthenticated && isMenuOpen && (
+        <div className="sm:hidden bg-custom-green-a transition-all duration-300 right-0 items-center h-screen fixed  flex flex-col float-end gap-10 p-10 flex-1 w-ful z-40 cursor-pointer list-none">
+          <div className="absolute inset-0">
+            <Image
+              src={navBG}
+              alt="Background"
+              fill
+              style={{ objectFit: "cover" }}
+              className="opacity-20 z-0"
+            />
+          </div>
+          <button onClick={() => setIsMenuOpen(false)} className="z-40">
+            <Image src={CloseMenu} alt="menu" width={30} height={30} />
+          </button>
+          <nav className="hover:text-custom-green-d hover:underline z-40">
+            <Link href="/user">Home</Link>
+          </nav>
+          <nav className="hover:text-custom-green-d hover:underline z-40">
+            <Link href="/user/#about-us">About Us</Link>
+          </nav>
+          <nav className="hover:text-custom-green-d hover:underline z-40">
+            <Link href="/user/#product">Products</Link>
+          </nav>
+          <nav className="flex gap-8 align-center">
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  logout();
+                  router.push("/auth/signin");
+                }}
+                className="bg-custom-green-b z-40 text-white px-3 py-2 rounded"
+              >
+                Log out
+              </button>
+            ) : (
+              <div className="z-40">
+                {isHome && (
+                  <Link href="/auth/signin">
+                    <button className="bg-custom-green-b text-white px-3 py-2 rounded">
+                      Get started
+                    </button>
+                  </Link>
+                )}
+                {isSignupRoute ? (
+                  <Link href="/auth/signin">
+                    <button className="bg-custom-green-b text-white px-3 py-2 rounded">
+                      Sign In
+                    </button>
+                  </Link>
+                ) : (
+                  isAuthRoute && (
+                    <Link href="/auth/signup">
+                      <button className="bg-custom-green-b text-white px-3 py-2 rounded">
+                        Sign Up
+                      </button>
+                    </Link>
+                  )
+                )}
+              </div>
+            )}
+          </nav>
+        </div>
+      )}
+
+      {!isAuthenticated && isMenuOpen && (
+        <div className="sm:hidden bg-custom-green-a right-0 items-center h-screen fixed  flex flex-col float-end gap-10 p-10 flex-1 w-ful z-40 cursor-pointer list-none">
+          <div className="absolute inset-0">
+            <Image
+              src={navBG}
+              alt="Background"
+              fill
+              style={{ objectFit: "cover" }}
+              className="opacity-20 z-0"
+            />
+          </div>
+          <button onClick={() => setIsMenuOpen(false)} className="z-40">
+            <Image src={CloseMenu} alt="menu" width={30} height={30} />
+          </button>
+          <nav className="hover:text-custom-green-d hover:underline z-40">
+            <Link href="/">Home</Link>
+          </nav>
+          <nav className="hover:text-custom-green-d hover:underline z-40">
+            <Link href="/#about-us">About Us</Link>
+          </nav>
+          <nav className="hover:text-custom-green-d hover:underline z-40">
+            <Link href="/#product">Products</Link>
+          </nav>
+          <nav className="hover:text-custom-green-d hover:underline z-40">
+            <Link href="/#contact-us">Contact Us</Link>
+          </nav>
+          <nav className="flex gap-8 align-center">
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  logout();
+                  router.push("/auth/signin");
+                }}
+                className="bg-custom-green-b z-40 text-white px-3 py-2 rounded"
+              >
+                Log out
+              </button>
+            ) : (
+              <div className="z-40">
+                {isHome && (
+                  <Link href="/auth/signin">
+                    <button className="bg-custom-green-b text-white px-3 py-2 rounded">
+                      Get started
+                    </button>
+                  </Link>
+                )}
+                {isSignupRoute ? (
+                  <Link href="/auth/signin">
+                    <button className="bg-custom-green-b text-white px-3 py-2 rounded">
+                      Sign In
+                    </button>
+                  </Link>
+                ) : (
+                  isAuthRoute && (
+                    <Link href="/auth/signup">
+                      <button className="bg-custom-green-b text-white px-3 py-2 rounded">
+                        Sign Up
+                      </button>
+                    </Link>
+                  )
+                )}
+              </div>
+            )}
+          </nav>
         </div>
       )}
       <ProductDetail

@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import Cookies from 'js-cookie';
+import {jwtDecode} from "jwt-decode";
+import { toast } from "../components/ui/use-toast";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -22,5 +24,28 @@ const useAuthStore = create<AuthState>((set) => ({
     }
   },
 }));
+
+// Check token expiration and update state accordingly
+if (typeof window !== 'undefined') {
+  const token = Cookies.get("token");
+  if (token) {
+    try {
+      const decodedToken: any = jwtDecode(token);
+      if (decodedToken.exp < Date.now() / 1000) {
+        console.log("Expired token, logging out");
+        toast({
+          variant: "default",
+          description: "Token expired, please sign in again",
+        });
+        Cookies.remove("token");
+        useAuthStore.setState({ isAuthenticated: false });
+      }
+    } catch (error) {
+      console.log("Invalid token, logging out");
+      Cookies.remove("token");
+      useAuthStore.setState({ isAuthenticated: false });
+    }
+  }
+}
 
 export default useAuthStore;

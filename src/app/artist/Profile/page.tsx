@@ -42,7 +42,6 @@ const Profile = () => {
     role: string;
     password: string;
   }) => {
-    console.log("edited profile: ", user);
     const token = localStorage.getItem("token");
     try {
       const response = await axios.put(

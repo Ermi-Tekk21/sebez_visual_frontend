@@ -12,6 +12,7 @@ const Home: React.FC = () => {
         <LandingPage />
         <AboutUsPage />
         <ProductPage />
+        <hr />
         <ContactUsPage />
       </>
 

@@ -61,7 +61,7 @@ const Cart: React.FC<CartProps> = ({ url }) => {
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Here is your cart</SheetTitle>
-          <div className="h-[500px] overflow-y-auto pe-3">
+          <div className="h-screen overflow-y-auto pe-3">
             {cart.cartProducts.map((product: { id: React.Key | null | undefined; }) => (
               <CartProduct key={product.id} product={product} />
             ))}
@@ -75,7 +75,7 @@ const Cart: React.FC<CartProps> = ({ url }) => {
                   Your cart is empty
                 </h1>
                 <SheetTrigger asChild>
-                  <Link href="/user">
+                  <Link href="/user/#product">
                     <Button>Go To Shop</Button>
                   </Link>
                 </SheetTrigger>

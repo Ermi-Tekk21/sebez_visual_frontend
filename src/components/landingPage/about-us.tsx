@@ -36,8 +36,8 @@ const AboutUsPage: React.FC = () => {
         {/* Right Half: Text */}
         <div className="w-full md:w-1/2 p-8 flex items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-4">Who We Are</h2>
-            <p className="text-lg text-gray-700">
+            <h2 className="text-3xl font-bold mb-4 max-sm:text-center">Who We Are</h2>
+            <p className="text-lg max-sm:text-center text-gray-700">
               Welcome to Sebez Visual Art, your premier destination for
               discovering and acquiring unique visual artworks. At Sebez, we
               celebrate creativity, culture, and the artistic spirit by offering
@@ -45,8 +45,8 @@ const AboutUsPage: React.FC = () => {
               talented artists.
             </p>
 
-            <p className="text-lg text-gray-700 mt-4">
-              <span className="text-custom-green-d font-semibold">
+            <p className="text-lg max-sm:text-center text-gray-700 mt-4">
+              <span className="text-custom-green-d max-sm:text-center font-semibold">
                 Our Mission{" "}
               </span>
               is to bridge the gap between artists and art enthusiasts. We aim
@@ -56,7 +56,7 @@ const AboutUsPage: React.FC = () => {
               broader audience, while art lovers can find and purchase pieces
               that resonate with them.
             </p>
-            <p className="text-lg text-gray-700 mt-4">
+            <p className="text-lg max-sm:text-center text-gray-700 mt-4">
               <span className="text-custom-green-d font-semibold">
                 Join Our Community{" "}
               </span>

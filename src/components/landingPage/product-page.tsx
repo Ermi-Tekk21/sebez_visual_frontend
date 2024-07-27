@@ -79,7 +79,11 @@ const ProductPage: React.FC = () => {
   }
 
   if (error) {
-    return <p className="text-red-500">Error: {error}</p>;
+    return <div className="flex items-center justify-center min-h-screen bg-gray-900">
+    <span className="text-red-500 font-semibold text-lg animate-bounce">
+    Error: {error}
+    </span>
+  </div>
   }
 
   const selectedCategoryProducts = selectedCategory

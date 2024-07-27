@@ -64,7 +64,7 @@ const AdminPage: React.FC = () => {
           className="opacity-70"
         />
       </div>
-      <div className="relative w-3/4 m-auto bg-custom-green-c shadow-md rounded-tl-2xl rounded-br-2xl p-8 flex items-center gap-20 bg-opacity-80">
+      <div className="relative sm:w-3/4 m-auto bg-custom-green-c shadow-md rounded-tl-2xl rounded-br-2xl p-8 flex max-sm:flex-col items-center gap-20 bg-opacity-80">
         <div className="flex-shrink-0">
           <Image
             src={ArtImage}

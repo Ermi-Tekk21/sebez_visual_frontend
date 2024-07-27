@@ -6,7 +6,18 @@ const Footer: React.FC = () => {
   return (
     <div>
       <footer className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 py-14 px-16 font-sans tracking-wide relative">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="flex sm:hidden items-center lg:justify-center justify-center mb-10 ">
+            <a href="#">
+              <Image
+                src={SebezLogo}
+                alt="Sebez Logo"
+                className="w-60"
+                width={240}
+                height={60}
+              />
+            </a>
+          </div>
+        <div className="flex justify-between flex-1 gap-8">
           <div>
             <h2 className="text-white text-lg font-semibold mb-4">
               Quick Links
@@ -99,7 +110,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          <div className="flex items-center lg:justify-center">
+          <div className="flex max-sm:hidden items-center lg:justify-center">
             <a href="#">
               <Image
                 src={SebezLogo}

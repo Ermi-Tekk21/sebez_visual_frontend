@@ -13,7 +13,7 @@ import { useRouter, usePathname } from "next/navigation";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "../ui/use-toast";
-import Cookies from 'js-cookie'; // Import js-cookie for handling cookies
+import Cookies from "js-cookie";
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -27,14 +27,13 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = Cookies.get("token"); // Get token from cookies
+      const token = Cookies.get("token");
       if (!token) {
         console.error("No token found");
         return;
       }
       const decodedToken: any = jwtDecode(token);
       if (decodedToken.exp < currentTime) {
-        console.log("Expired token");
         toast({
           variant: "default",
           description: "Token expired, please sign in again",
@@ -67,59 +66,59 @@ const Sidebar: React.FC = () => {
   };
 
   const isAdmin = userData.role === "admin";
-  const basePath = pathname.split('/')[1]; // Get the base route (e.g., 'admin' or 'artist')
+  const basePath = pathname.split("/")[1];
 
   return (
     <div
-      className={`h-screen z-10 bg-gray-800 ${
-        isExpanded ? "w-60" : "w-16"
-      } transition-all duration-300 static items-center`}
+      className={`sm:h-screen bg-gray-800 z-50 ${
+        isExpanded ? "sm:w-60" : "sm:w-16"
+      } transition-all duration-300 sm:static max-sm:justify-around items-center sm:overflow-y-auto max-sm:flex max-sm:flex-row max-sm:gap-4 max-sm:w-full`}
     >
-      <div className="flex justify-end">
+      <div className="flex justify-end sm:justify-center sm:mt-4">
         <button
           onClick={toggleSidebar}
-          className="p-2 text-white focus:outline-none"
+          className="p-2 max-sm:hidden text-white focus:outline-none"
         >
           {isExpanded ? <Minimize /> : <Expand />}
         </button>
       </div>
-      <div className="flex flex-col items-center mt-4 space-y-4">
+      <div className="flex sm:flex-col items-center sm:space-y-4 max-sm:space-x-4 max-sm:space-y-0 max-sm:mt-0 max-sm:flex-grow">
         {isAdmin && (
-          <div>
-            <Link href={`/${basePath}/users`} legacyBehavior>
-              <a className="text-white ">
-                {isExpanded ? (
-                  <div
-                    className={`bordered shadow-md rounded-md px-3 border-[1px] ${
-                      pathname.includes(`${basePath}/users`) && "bg-white text-blue-950"
-                    }`}
-                  >
-                    Get Users
-                  </div>
-                ) : (
-                  <div
-                    className={`bg-white rounded-full p-1 hover:p-2 ${
-                      pathname.includes(`${basePath}/users`) && "bg-slate-500 p-3"
-                    }`}
-                  >
-                    <Image
-                      src={userTag}
-                      alt="User Tag"
-                      className="text-white z-0"
-                    />
-                  </div>
-                )}
-              </a>
-            </Link>
-          </div>
+          <Link href={`/${basePath}/users`} legacyBehavior>
+            <a className="text-white">
+              {isExpanded ? (
+                <div
+                  className={`bordered shadow-md rounded-md px-3 border-[1px] ${
+                    pathname.includes(`${basePath}/users`) &&
+                    "bg-white text-blue-950"
+                  }`}
+                >
+                  Get Users
+                </div>
+              ) : (
+                <div
+                  className={`bg-white rounded-full p-1 hover:p-2 ${
+                    pathname.includes(`${basePath}/users`) &&
+                    "bg-slate-500 p-3"
+                  }`}
+                >
+                  <Image
+                    src={userTag}
+                    alt="User Tag"
+                    className="text-white z-0"
+                  />
+                </div>
+              )}
+            </a>
+          </Link>
         )}
-
         <Link href={`/${basePath}/products`} legacyBehavior>
           <a className="text-white">
             {isExpanded ? (
               <div
                 className={`bordered shadow-md rounded-md px-3 border-[1px] ${
-                  pathname.includes(`${basePath}/products`) && "bg-white text-blue-950"
+                  pathname.includes(`${basePath}/products`) &&
+                  "bg-white text-blue-950"
                 }`}
               >
                 Add Products
@@ -127,7 +126,8 @@ const Sidebar: React.FC = () => {
             ) : (
               <div
                 className={`bg-white rounded-full p-1 hover:p-2 ${
-                  pathname.includes(`${basePath}/products`) && "bg-slate-500 p-3"
+                  pathname.includes(`${basePath}/products`) &&
+                  "bg-slate-500 p-3"
                 }`}
               >
                 <Image
@@ -139,43 +139,42 @@ const Sidebar: React.FC = () => {
             )}
           </a>
         </Link>
-
         {isAdmin && (
-          <div>
-            <Link href={`/${basePath}/getProducts`} legacyBehavior>
-              <a className="text-white">
-                {isExpanded ? (
-                  <div
-                    className={`bordered shadow-md rounded-md px-3 border-[1px] ${
-                      pathname.includes(`${basePath}/getProducts`) && "bg-white text-blue-950"
-                    }`}
-                  >
-                    Get Products
-                  </div>
-                ) : (
-                  <div
-                    className={`bg-white rounded-full p-1 hover:p-2 ${
-                      pathname.includes(`${basePath}/getProducts`) && "bg-slate-500 p-3"
-                    }`}
-                  >
-                    <Image
-                      src={prdList}
-                      alt="Product List"
-                      className="text-white z-0"
-                    />
-                  </div>
-                )}
-              </a>
-            </Link>
-          </div>
+          <Link href={`/${basePath}/getProducts`} legacyBehavior>
+            <a className="text-white">
+              {isExpanded ? (
+                <div
+                  className={`bordered shadow-md rounded-md px-3 border-[1px] ${
+                    pathname.includes(`${basePath}/getProducts`) &&
+                    "bg-white text-blue-950"
+                  }`}
+                >
+                  Get Products
+                </div>
+              ) : (
+                <div
+                  className={`bg-white rounded-full p-1 hover:p-2 ${
+                    pathname.includes(`${basePath}/getProducts`) &&
+                    "bg-slate-500 p-3"
+                  }`}
+                >
+                  <Image
+                    src={prdList}
+                    alt="Product List"
+                    className="text-white z-0"
+                  />
+                </div>
+              )}
+            </a>
+          </Link>
         )}
-
         <Link href={`/${basePath}/Profile`} legacyBehavior>
           <a className="text-white">
             {isExpanded ? (
               <div
                 className={`bordered shadow-md rounded-md px-3 border-[1px] ${
-                  pathname.includes(`${basePath}/Profile`) && "bg-white text-blue-950"
+                  pathname.includes(`${basePath}/Profile`) &&
+                  "bg-white text-blue-950"
                 }`}
               >
                 Profile
@@ -183,7 +182,8 @@ const Sidebar: React.FC = () => {
             ) : (
               <div
                 className={`bg-white rounded-full p-1 hover:p-2 ${
-                  pathname.includes(`${basePath}/Profile`) && "bg-slate-500 p-3"
+                  pathname.includes(`${basePath}/Profile`) &&
+                  "bg-slate-500 p-3"
                 }`}
               >
                 <Image
@@ -195,32 +195,18 @@ const Sidebar: React.FC = () => {
             )}
           </a>
         </Link>
-
-        <div className="text-white">
-          {isExpanded ? (
-            <button
-              onClick={() => {
-                Cookies.remove("token"); // Remove token from cookies
-                logout();
-                router.push("/auth/signin");
-              }}
-              className="hover:bg-red-600 hover:text-white bordered shadow-md rounded-md px-3 border-[1px]"
-            >
-              Log out
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                Cookies.remove("token"); // Remove token from cookies
-                logout();
-                router.push("/auth/signin");
-              }}
-              className="hover:bg-red-600 hover:rounded-md p-3"
-            >
-              <LogOut />
-            </button>
-          )}
-        </div>
+        <button
+          onClick={() => {
+            Cookies.remove("token");
+            logout();
+            router.push("/auth/signin");
+          }}
+          className={`text-white hover:bg-red-600 hover:text-white bordered shadow-md rounded-md px-3 border-[1px] ${
+            isExpanded ? "mt-4" : "p-3"
+          }`}
+        >
+          {isExpanded ? "Log out" : <LogOut />}
+        </button>
       </div>
     </div>
   );

@@ -2,19 +2,19 @@ import React from "react";
 
 const ContactUsPage: React.FC = () => {
   return (
-    <main id="contact-us">
+    <main id="contact-us" className=" t">
       {/* Contact Us Section Header */}
-      <section className="bg-gray-300 py-10">
+      <section className="bg-gray-900 py-10">
         <div className="container mx-auto text-center">
-          <h1 className="text-4xl font-bold text-blue-950">Contact Us</h1>
-          <p className="text-lg text-black mt-2">
-            Reach out to us for any inquiries or collaborations
+          <h1 className="text-4xl font-bold text-white">Contact Us</h1>
+          <p className="text-lg text-gray-300 mt-2">
+            Reach out to us for any inquiries or collaborations | ask us if u have products for <span className="bordered border-[1px] rounded-lg font-semibold shadow-2xl p-2">selling</span> 
           </p>
         </div>
       </section>
 
       {/* Main Contact Section: Half Map, Half Form */}
-      <section className="py-20 flex flex-wrap">
+      <section className="flex max-sm:flex-col gap-6 p-10">
         {/* Left Half: Map */}
         <div className="w-full md:w-1/2">
           <div className="relative h-96">
@@ -31,7 +31,7 @@ const ContactUsPage: React.FC = () => {
         </div>
 
         {/* Right Half: Contact Form */}
-        <div className="w-full md:w-1/2 p-8">
+        <div className="w-full md:w-1/2">
           <h2 className="text-3xl font-bold mb-4">Send us a message</h2>
           <form className="space-y-4">
             <div>
