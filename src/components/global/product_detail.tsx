@@ -53,7 +53,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
             data-original="#000000"
           ></path>
         </svg>
-        <div className="flex gap-5">
+        <div className="flex gap-5 max-sm:flex-col">
           <Image
             src={product.imageUrl}
             alt={product.item_name}
