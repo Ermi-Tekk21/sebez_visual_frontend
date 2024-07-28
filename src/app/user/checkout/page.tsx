@@ -68,7 +68,7 @@ export default function CheckoutPage() {
   return (
     <div className="flex max-sm:flex-col gap-2 items-center bg-gray-900 sm:p-24">
       <div className="bg-white shadow-lg rounded-lg max-sm:p-11 sm:p-6 max-sm:mt-24">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 ">
+        <h2 className="text-2xl font-bold text-gray-800 mb-5 ">
           Order Summary
         </h2>
         <div className="mt-6 bg-gray-800 text-white rounded-lg p-4 flex justify-between items-center">
@@ -157,7 +157,7 @@ export default function CheckoutPage() {
       </div>
       <div className="bg-white shadow-lg rounded-lg p-12 justify-center items-center m-auto align-center">
        
-        <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">
           Complete your order
         </h2>
         <form

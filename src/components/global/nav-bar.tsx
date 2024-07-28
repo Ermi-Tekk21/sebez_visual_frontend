@@ -138,30 +138,30 @@ const NavBar: React.FC = () => {
           </Link>
 
           {isAuthenticated && (
-            <div className="max-sm:hidden cursor-pointer list-none flex justify-around gap-16 opacity-70">
+            <div className="max-sm:hidden z-40 cursor-pointer list-none flex justify-around gap-16 opacity-70">
               <nav className="hover:text-custom-green-d hover:underline">
                 <Link href="/user">Home</Link>
               </nav>
-              <nav className="hover:text-custom-green-d hover:underline">
+              <nav className="hover:text-custom-green-d z-40 hover:underline">
                 <Link href="/user/#about-us">About Us</Link>
               </nav>
-              <nav className="hover:text-custom-green-d hover:underline">
+              <nav className="hover:text-custom-green-d z-40 hover:underline">
                 <Link href="/user/#product">Products</Link>
               </nav>
             </div>
           )}
           {!isAuthenticated && (
-            <div className="max-sm:hidden cursor-pointer list-none flex justify-around gap-16 opacity-70">
+            <div className="max-sm:hidden cursor-pointer list-none flex justify-around gap-16 opacity-70 z-10">
               <nav className="hover:text-custom-green-d hover:underline">
                 <Link href="/">Home</Link>
               </nav>
-              <nav className="hover:text-custom-green-d hover:underline">
+              <nav className="hover:text-custom-green-d hover:underline z-10">
                 <Link href="/#about-us">About Us</Link>
               </nav>
-              <nav className="hover:text-custom-green-d hover:underline">
+              <nav className="hover:text-custom-green-d hover:underline z-10">
                 <Link href="/#product">Products</Link>
               </nav>
-              <nav className="hover:text-custom-green-d hover:underline">
+              <nav className="hover:text-custom-green-d hover:underline z-10">
                 <Link href="/#contact-us">Contact Us</Link>
               </nav>
             </div>

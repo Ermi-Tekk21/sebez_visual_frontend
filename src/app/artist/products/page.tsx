@@ -1,22 +1,15 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import BackgroundImage from "../../../../public/assets/images/hero.jpg";
-import useAuthStore from "@/stores/AuthStore";
-import { useRouter } from "next/navigation";
 import { toast } from "@/components/ui/use-toast";
+import Cookies from "js-cookie"; // Import js-cookie for handling cookies
 const dotenv = require("dotenv");
 dotenv.config();
-const AddProduct = () => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const router = useRouter();
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push("/auth/signin");
-    }
-  }, []);
 
+const AddProduct = () => {
   const [formData, setFormData] = useState({
     category: "Drawings",
     item_name: "",
@@ -26,20 +19,22 @@ const AddProduct = () => {
     imageUrl: "",
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
+    const token = Cookies.get("token"); // Get token from cookies
 
     try {
       await axios.post(
-        `${process.env.SEBEZ_ENDPOINT}/api/product/getallProducts`,
+        `${process.env.SEBEZ_ENDPOINT}/api/product/createProduct`,
         formData,
         {
           headers: {
@@ -73,19 +68,19 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center  justify-center bg-gray-900">
+    <div className="flex min-h-screen items-center justify-center bg-gray-900">
       <div className="absolute inset-0">
         <Image
           src={BackgroundImage}
           alt="Background"
-          fill
-          style={{ objectFit: "cover" }}
+          layout="fill"
+          objectFit="cover"
           className="opacity-40"
         />
       </div>
       <div className="bg-white z-10 p-8 rounded shadow-md w-full max-w-[600px]">
         <h2 className="text-2xl font-bold mb-6 text-center">Add Product</h2>
-        <form className=" gap-2" onSubmit={handleSubmit}>
+        <form className="gap-2" onSubmit={handleSubmit}>
           <div className="flex gap-10 justify-between">
             <div>
               <div className="mb-4">
@@ -175,7 +170,6 @@ const AddProduct = () => {
               </div>
             </div>
           </div>
-
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-200"

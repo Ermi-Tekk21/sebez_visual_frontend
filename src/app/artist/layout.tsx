@@ -12,9 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div style={{ display: "flex" }}>
+    <div className="flex max-sm:flex-col">
       <Sidebar /> {/* Render the sidebar component */}
-      <div style={{ flex: 1, marginLeft: "20px" }}> {/* Main content area */}
+      <div style={{ flex: 1}}> {/* Main content area */}
         <div className={inter.className}> {/* Apply Inter font styles */}
           {children} {/* Render children components */}
         </div>

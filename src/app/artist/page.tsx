@@ -63,7 +63,7 @@ const ArtistPage: React.FC = () => {
           className="opacity-70"
         />
       </div>
-      <div className="relative w-3/4 m-auto bg-custom-green-c shadow-md rounded-tl-2xl  rounded-br-2xl p-8 flex items-center gap-20 bg-opacity-80">
+      <div className="relative w-3/4 m-auto max-sm:flex-col bg-custom-green-c shadow-md rounded-tl-2xl  rounded-br-2xl p-8 flex items-center gap-20 bg-opacity-80">
         <div className="flex-shrink-0">
           <Image
             src={ArtImage}
@@ -74,7 +74,7 @@ const ArtistPage: React.FC = () => {
           />
         </div>
         <div>
-          <h1 className="text-4xl font-bold text-black mb-4">
+          <h1 className="text-4xl max-sm:text-2xl font-bold text-black mb-4">
             Welcome to
             <span className="text-custom-green-d ">
               {" "}
@@ -82,7 +82,7 @@ const ArtistPage: React.FC = () => {
             </span>{" "}
             ARTIST's Dashboard.
           </h1>
-          <h2 className="text-2xl font-semibold text-black mb-4">
+          <h2 className="text-2xl max-sm:text-xl font-semibold text-black mb-4">
             Connect with Creativity
           </h2>
           <p className="text-black mb-4 font-light">

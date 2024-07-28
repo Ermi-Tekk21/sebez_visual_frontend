@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
@@ -8,31 +9,13 @@ import useAuthStore from "@/stores/AuthStore";
 import { Button } from "@/components/ui/button";
 import EditProfile from "@/components/global/editProfile";
 import { toast } from "@/components/ui/use-toast";
+import Cookies from "js-cookie"; // Import js-cookie for handling cookies
 const dotenv = require("dotenv");
 dotenv.config();
 
 const Profile = () => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const router = useRouter();
-  interface User {
-    _id: string;
-    name: string;
-    email: string;
-    address: string;
-    role: string;
-    password: string;
-  }
-  
-  const [userData, setUserData] = useState<User>({
-    _id: "",
-    name: "",
-    email: "",
-    address: "",
-    role: "",
-    password: "",
-  });
+  const [userData, setUserData] = useState<any>(null);
   const [isModalOpenToEdit, setModalOpenToEdit] = useState(false);
-  const logout = useAuthStore((state) => state.logout);
 
   const handleEditProfile = async (user: {
     _id: string;
@@ -42,7 +25,7 @@ const Profile = () => {
     role: string;
     password: string;
   }) => {
-    const token = localStorage.getItem("token");
+    const token = Cookies.get("token"); // Get token from cookies
     try {
       const response = await axios.put(
         `${process.env.SEBEZ_ENDPOINT}/api/user/update/${user._id}`,
@@ -62,31 +45,24 @@ const Profile = () => {
       setModalOpenToEdit(false);
       toast({
         variant: "default",
-        description: "profile updated successfully",
+        description: "Profile updated successfully",
       });
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      console.log(err.response?.data);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: "unable to update",
+        description: `${err.response?.data}`,
       });
     }
   };
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      logout();
-      router.push("/auth/signin");
-    }
-  }, [isAuthenticated, logout, router]);
-
-  useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem("token");
+      const token = Cookies.get("token"); // Get token from cookies
       try {
         const response = await axios.get(
-          `${process.env.SEBEZ_ENDPOINT}api/user/getMe`,
+          `${process.env.SEBEZ_ENDPOINT}/api/user/getMe`,
           {
             headers: {
               "x-auth-token": token,
@@ -94,7 +70,6 @@ const Profile = () => {
           }
         );
         setUserData(response.data);
-        console.log("User data testing: ", userData);
       } catch (error: any) {
         console.log(error);
       }
@@ -106,6 +81,7 @@ const Profile = () => {
   const handleCloseModalEditProfile = () => {
     setModalOpenToEdit(false);
   };
+
   const handleOpenModalEditProfile = () => {
     setModalOpenToEdit(true);
   };
