@@ -171,8 +171,8 @@ const NavBar: React.FC = () => {
               <div onClick={handleProductsClick}>
                 <input
                   type="text"
-                  placeholder="Search products"
-                  className="px-2 py-1 max-sm:w-36 rounded border border-green-400"
+                  placeholder="Search"
+                  className="px-2 py-1 max-sm:w-20 rounded border border-green-400"
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
@@ -264,7 +264,7 @@ const NavBar: React.FC = () => {
               className="opacity-20 z-0"
             />
           </div>
-          <button onClick={() => setIsMenuOpen(false)} className="z-40">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="z-40">
             <Image src={CloseMenu} alt="menu" width={30} height={30} />
           </button>
           <nav className="hover:text-custom-green-d hover:underline z-40">
@@ -328,7 +328,7 @@ const NavBar: React.FC = () => {
               className="opacity-20 z-0"
             />
           </div>
-          <button onClick={() => setIsMenuOpen(false)} className="z-40">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="z-40">
             <Image src={CloseMenu} alt="menu" width={30} height={30} />
           </button>
           <nav className="hover:text-custom-green-d hover:underline z-40">
