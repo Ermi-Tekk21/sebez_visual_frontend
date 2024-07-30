@@ -143,10 +143,13 @@ const NavBar: React.FC = () => {
                 <Link href="/user">Home</Link>
               </nav>
               <nav className="hover:text-custom-green-d z-40 hover:underline">
-                <Link href="/user/#about-us">About Us</Link>
+                <Link href="/user/aboutus">About Us</Link>
               </nav>
               <nav className="hover:text-custom-green-d z-40 hover:underline">
                 <Link href="/user/#product">Products</Link>
+              </nav>
+              <nav className="hover:text-custom-green-d z-40 hover:underline">
+                <Link href="/user/contactus">Contact Us</Link>
               </nav>
             </div>
           )}
