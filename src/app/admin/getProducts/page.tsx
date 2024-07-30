@@ -136,8 +136,8 @@ const GetProducts: React.FC = () => {
             {error}
           </div>
         )}
-        <ScrollArea className="h-[500px] rounded-md border">
-          <table className="w-full table-auto">
+        <ScrollArea className="h-[500px] max-sm:[400px] rounded-md border">
+          <table className="w-full table-auto overflow-x-scroll">
             <thead className="sticky top-0 bg-white bg-opacity-95">
               <tr>
                 <th className="px-4 py-2">Category</th>

@@ -6,7 +6,6 @@ import ProductPage from "@/components/landingPage/product-page";
 import axios from "axios";
 import Cookies from "js-cookie";
 import LandingPage from "@/components/landingPage/landing-page";
-import AboutUsPage from "@/components/landingPage/about-us";
 import ContactUsPage from "@/components/landingPage/contact-us";
 const dotenv = require("dotenv");
 dotenv.config();
@@ -56,7 +55,6 @@ const UserPage = () => {
       <LandingPage />
       <ProductPage />
       <hr />
-      <AboutUsPage />
       <ContactUsPage />
     </div>
   );

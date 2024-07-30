@@ -188,42 +188,44 @@ const GetUsers: React.FC = () => {
       </div>
       <div className="bg-white z-10 p-8 rounded shadow-md w-full max-w-4xl">
         <h2 className="text-2xl font-bold mb-6 text-center">Users</h2>
-        <ScrollArea className="h-[500px] rounded-md border">
-          <table className="w-full table-auto">
-            <thead className="sticky top-0 bg-white bg-opacity-95">
-              <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Email</th>
-                <th className="px-4 py-2">Role</th>
-                <th className="px-4 py-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user._id} className="bg-gray-50">
-                  <td className="border px-4 py-2">{user.name}</td>
-                  <td className="border px-4 py-2">{user.email}</td>
-                  <td className="border px-4 py-2">{user.role}</td>
-                  <td className="border px-4 py-2 flex justify-center">
-                    <button
-                      onClick={() => handleOpenModalChangeRole(user._id)}
-                      className={`${
-                        user.role === "admin" ? "bg-yellow-500" : "bg-green-500"
-                      } text-white px-2 py-1 rounded mr-2 hover:bg-yellow-600 transition duration-200`}
-                    >
-                      Change Role
-                    </button>
-                    <button
-                      onClick={() => handleOpenModalDel(user._id)}
-                      className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition duration-200"
-                    >
-                      Delete
-                    </button>
-                  </td>
+        <ScrollArea className="h-[500px] rounded-md border overflow-x-auto p-4">
+          <div className="w-full">
+            <table className="w-full table-auto">
+              <thead className="sticky top-0 bg-white bg-opacity-95">
+                <tr>
+                  <th className="px-2 sm:px-4 py-2">Name</th>
+                  <th className="px-2 sm:px-4 py-2">Email</th>
+                  <th className="px-2 sm:px-4 py-2">Role</th>
+                  <th className="px-2 sm:px-4 py-2">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user._id} className="bg-gray-50">
+                    <td className="border px-2 sm:px-4 py-2">{user.name}</td>
+                    <td className="border px-2 sm:px-4 py-2">{user.email}</td>
+                    <td className="border px-2 sm:px-4 py-2">{user.role}</td>
+                    <td className="border px-2 sm:px-4 py-2 flex justify-center">
+                      <button
+                        onClick={() => handleOpenModalChangeRole(user._id)}
+                        className={`${
+                          user.role === "admin" ? "bg-yellow-500" : "bg-green-500"
+                        } text-white px-2 py-1 rounded mr-2 hover:bg-yellow-600 transition duration-200`}
+                      >
+                        Change Role
+                      </button>
+                      <button
+                        onClick={() => handleOpenModalDel(user._id)}
+                        className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition duration-200"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </ScrollArea>
       </div>
 
