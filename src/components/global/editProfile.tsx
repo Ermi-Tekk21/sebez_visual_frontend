@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../ui/button";
+import Show from "../../../public/assets/icons/show.svg";
+import Hide from "../../../public/assets/icons/hide.svg";
+import Image from "next/image";
 
 type User = {
   _id: string;
@@ -29,6 +32,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
   const [email, setEmail] = useState<string>(userData.email);
   const [address, setAddress] = useState<string>(userData.address);
   const [password, setPassword] = useState<string>(userData.password);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     setName(userData.name);
@@ -50,6 +54,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
 
     handleEditProfile(updatedUser);
     onClose();
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -126,14 +134,38 @@ const EditProfile: React.FC<EditProfileProps> = ({
                 >
                   Password:
                 </label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
+
+                <div className="relative mt-1 w-full">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    placeholder="********"
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute inset-y-0 right-0 flex items-center px-3 text-sm text-indigo-500 focus:outline-none"
+                  >
+                    {showPassword ? (
+                      <Image
+                        src={Hide}
+                        alt="User Tag"
+                        className="text-white z-0"
+                        style={{ width: "17px", height: "17px" }}
+                      />
+                    ) : (
+                      <Image
+                        src={Show}
+                        alt="User Tag"
+                        className="text-white z-0"
+                        style={{ width: "17px", height: "17px" }}
+                      />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
