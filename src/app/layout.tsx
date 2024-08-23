@@ -1,4 +1,5 @@
 "use client";
+import { EdgeStoreProvider } from '../lib/edgestore';
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/global/nav-bar";
@@ -26,7 +27,8 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         {!isAdminRoute && !isArtistRoute && <NavBar />}
-        <main>{children}</main>
+         {/* <main>{children}</main> */}
+        <EdgeStoreProvider>{children}</EdgeStoreProvider>
         {!isAdminRoute && !isArtistRoute && <Footer />}
         <Toaster />
       </body>

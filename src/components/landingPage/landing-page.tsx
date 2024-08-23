@@ -8,7 +8,6 @@ import useAuthStore from "@/stores/AuthStore";
 import Cookies from "js-cookie";
 import axios from "axios";
 import AOS from "aos";
-import "aos/dist/aos.css";
 
 
 const dotenv = require("dotenv");
@@ -18,7 +17,7 @@ const LandingPage: React.FC = () => {
 
   useEffect(() => {
     AOS.init({
-      duration:500,
+      duration: 500,
       once: true,
     });
   }, []);
@@ -79,7 +78,7 @@ const LandingPage: React.FC = () => {
           className="opacity-70"
         />
       </div>
-      <div className="flex max-sm:flex-1 max-sm:flex-col relative w-3/4 m-auto bg-custom-green-c shadow-md rounded-tl-2xl  rounded-br-2xl p-8 items-center gap-20 bg-opacity-80 "  data-aos="fade-left">
+      <div className="flex max-sm:flex-1 max-sm:flex-col relative w-3/4 m-auto bg-custom-green-c shadow-md rounded-tl-2xl  rounded-br-2xl p-8 items-center gap-20 bg-opacity-80 " data-aos="fade-left">
         <div className="flex-shrink-0">
           {isAuthenticated ? (
             <Image
@@ -150,7 +149,7 @@ const LandingPage: React.FC = () => {
               <div>
                 <Link href="/user/#contact-us">
                   <button className="hover:ring ring-white ring-offset-2 shadow-lg bg-custom-green-b font-semibold text-white px-6 py-2 rounded-full flex items-center gap-2">
-                    request to sell your product
+                    Request to sell your product
                     <div className="ratate-180 animate-bounce">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

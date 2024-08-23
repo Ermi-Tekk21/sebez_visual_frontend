@@ -5,6 +5,7 @@ const roleRoutes = ['/admin', '/user', '/artist'];
 const protectedRoutes = [...roleRoutes];
 const authRoutes = ['/auth'];
 
+//when the token is decoded
 interface AuthUser {
   id: string;
   username: string;
@@ -16,13 +17,13 @@ interface AuthUser {
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const cookieStore = request.cookies;
-  const accessToken = cookieStore.get('token');
+  const accessToken = cookieStore.get('token');//i get my token from cookie store
   
-  const accessTokenValue = accessToken ? accessToken.value : null;
+  const accessTokenValue = accessToken ? accessToken.value : null;//ttoken is placed here
 
 const authUser: AuthUser | null = accessTokenValue ? jwtDecode<AuthUser>(accessTokenValue) : null;
 
-  const isAuthPath = authRoutes.some(route => pathname.startsWith(route));
+  const isAuthPath = authRoutes.some(route => pathname.startsWith(route));// if starts with /auth
   const isRolePath = roleRoutes.some(route => pathname.startsWith(route));
   const isProtectedPath = protectedRoutes.some(route => pathname.startsWith(route));
 

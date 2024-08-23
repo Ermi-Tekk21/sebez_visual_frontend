@@ -6,6 +6,7 @@ import Image from "next/image";
 import BackgroundImage from "../../../../public/assets/images/hero.jpg";
 import { toast } from "@/components/ui/use-toast";
 import Cookies from "js-cookie"; // Import js-cookie for handling cookies
+import SingleImageUpload from "@/components/global/uploadSingleImage";
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -18,6 +19,12 @@ const AddProduct = () => {
     price: "",
     imageUrl: "",
   });
+  const [imageUrl, setImageUrl] = useState<string>(formData.imageUrl);
+  formData.imageUrl = imageUrl;
+
+  const handleImage = async (changedProfileImageUrl: string) => {
+    setImageUrl(changedProfileImageUrl);
+  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -78,7 +85,7 @@ const AddProduct = () => {
           className="opacity-40"
         />
       </div>
-      <div className="bg-white z-10 p-8 rounded shadow-md w-full max-w-[600px]">
+      <div className="bg-white z-10 p-8 rounded shadow-md w-full max-w-[700px] opacity-80">
         <h2 className="text-2xl font-bold mb-6 text-center">Add Product</h2>
         <form className="gap-2" onSubmit={handleSubmit}>
           <div className="flex gap-10 justify-between">
@@ -126,8 +133,6 @@ const AddProduct = () => {
                   required
                 />
               </div>
-            </div>
-            <div>
               <div className="mb-4">
                 <label className="block text-gray-700 font-semibold mb-2">
                   Quantity
@@ -142,6 +147,9 @@ const AddProduct = () => {
                   min="1"
                 />
               </div>
+            </div>
+            <div>
+
               <div className="mb-4">
                 <label className="block text-gray-700 font-semibold mb-2">
                   Price
@@ -155,21 +163,15 @@ const AddProduct = () => {
                   required
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 font-semibold mb-2">
-                  Image URL
-                </label>
-                <input
-                  type="text"
-                  name="imageUrl"
-                  value={formData.imageUrl}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                  required
+              <div className="bg-slate-700 mb-10">
+                <SingleImageUpload
+                  handleProfileImageChange={handleImage}
                 />
               </div>
             </div>
           </div>
+
+
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-200"

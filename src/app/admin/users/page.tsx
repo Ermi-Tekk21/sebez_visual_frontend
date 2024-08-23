@@ -186,7 +186,7 @@ const GetUsers: React.FC = () => {
           className="opacity-40 z-0"
         />
       </div>
-      <div className="bg-white z-10 p-8 rounded shadow-md w-full max-w-4xl">
+      <div className="bg-white z-10 p-8 rounded shadow-md w-full max-w-4xl opacity-80">
         <h2 className="text-2xl font-bold mb-6 text-center">Users</h2>
         <ScrollArea className="h-[500px] rounded-md border overflow-x-auto p-4">
           <div className="w-full">

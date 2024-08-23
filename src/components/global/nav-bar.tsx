@@ -10,7 +10,18 @@ import Menu from "../../../public/assets/icons/menu.svg";
 import CloseMenu from "../../../public/assets/icons/close.svg";
 import { useRouter } from "next/navigation";
 import ProductDetail from "./product_detail";
+import AOS from "aos"
+import ResMessage from "./resMessage";
+
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
+import ProfileIcon from "./profileIcon";
+
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 interface Product {
@@ -45,6 +56,15 @@ const NavBar: React.FC = () => {
   const isHome = pathname === "/";
   const isSignupRoute = pathname.includes("/auth/signup");
   const isAuthRoute = pathname.includes("/auth");
+  const isUser = pathname.includes("/user");
+
+  useEffect(() => {
+    AOS.init({
+      duration: 500,
+      once: true,
+    });
+    AOS.refresh()
+  }, [])
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -126,9 +146,8 @@ const NavBar: React.FC = () => {
   return (
     <main>
       <div
-        className={`${
-          showNav ? "translate-y-0" : "-translate-y-full"
-        } bg-custom-green-a shadow-md flex flex-col font-semibold z-40 fixed w-full top-0 transition-transform duration-300 ease-in-out `}
+        className={`${showNav ? "translate-y-0" : "-translate-y-full"
+          } bg-custom-green-a shadow-md flex flex-col font-semibold z-40 fixed w-full top-0 transition-transform duration-300 ease-in-out `}
       >
         <div className="flex items-center justify-around pt-4 pb-4">
           <Link href="/">
@@ -136,17 +155,28 @@ const NavBar: React.FC = () => {
               <Image src={Logo} alt="Sebez Logo" width={130} height={80} />
             </div>
           </Link>
-
           {isAuthenticated && (
             <div className="max-sm:hidden z-40 cursor-pointer list-none flex justify-around gap-16 opacity-70">
               <nav className="hover:text-custom-green-d hover:underline">
                 <Link href="/user">Home</Link>
               </nav>
+
+
               <nav className="hover:text-custom-green-d z-40 hover:underline">
                 <Link href="/user/aboutus">About Us</Link>
               </nav>
-              <nav className="hover:text-custom-green-d z-40 hover:underline">
-                <Link href="/user/#product">Products</Link>
+              <nav className="hover:text-custom-green-d hover:underline z-10">
+                <HoverCard>
+                  <HoverCardTrigger>Products</HoverCardTrigger>
+                  <HoverCardContent>
+                    <ul className="flex flex-col items-center font-mono font-thin text-sm gap-4">
+                      <li className="bg-slate-300 px-8 rounded-md hover:bg-slate-400"><Link href="/user/?category=Drawings">Drawings</Link></li>
+                      <li className="bg-slate-300 px-8 rounded-md hover:bg-slate-400"><Link href="/user/?category=Paintings">Paintings</Link></li>
+                      <li className="bg-slate-300 px-8 rounded-md hover:bg-slate-400"><Link href="/user/?category=Sculptures">Sculptures</Link></li>
+                      <li className="bg-slate-300 px-8 rounded-md hover:bg-slate-400"><Link href="/user/?category=Sketches">Sketches</Link></li>
+                    </ul>
+                  </HoverCardContent>
+                </HoverCard>
               </nav>
               <nav className="hover:text-custom-green-d z-40 hover:underline">
                 <Link href="/user/contactus">Contact Us</Link>
@@ -159,13 +189,25 @@ const NavBar: React.FC = () => {
                 <Link href="/">Home</Link>
               </nav>
               <nav className="hover:text-custom-green-d hover:underline z-10">
-                <Link href="/#about-us">About Us</Link>
+                <Link href="/home/aboutUs">About Us</Link>
               </nav>
               <nav className="hover:text-custom-green-d hover:underline z-10">
-                <Link href="/#product">Products</Link>
+                <HoverCard>
+                  <HoverCardTrigger>Products</HoverCardTrigger>
+                  <HoverCardContent>
+                    <ul className="flex flex-col items-center font-mono font-thin text-sm gap-4">
+                      <li className="bg-slate-300 px-8 rounded-md hover:bg-slate-400"><Link href="/?category=Drawings">Drawings</Link></li>
+                      <li className="bg-slate-300 px-8 rounded-md hover:bg-slate-400"><Link href="/?category=Paintings">Paintings</Link></li>
+                      <li className="bg-slate-300 px-8 rounded-md hover:bg-slate-400"><Link href="/?category=Sculptures">Sculptures</Link></li>
+                      <li className="bg-slate-300 px-8 rounded-md hover:bg-slate-400"><Link href="/?category=Sketches">Sketches</Link></li>
+                    </ul>
+                  </HoverCardContent>
+                </HoverCard>
               </nav>
+
+
               <nav className="hover:text-custom-green-d hover:underline z-10">
-                <Link href="/#contact-us">Contact Us</Link>
+                <Link href="/home/contactUs">Contact Us</Link>
               </nav>
             </div>
           )}
@@ -202,15 +244,19 @@ const NavBar: React.FC = () => {
             {isAuthenticated && <Cart />}
             <nav className="flex max-sm:hidden gap-8 align-center transition-all duration-300">
               {isAuthenticated ? (
-                <button
-                  onClick={() => {
-                    logout();
-                    router.push("/auth/signin");
-                  }}
-                  className="bg-custom-green-b z-40 text-white px-3 py-2 rounded"
-                >
-                  Log out
-                </button>
+                <div className="flex gap-4 items-center ">
+                  <ResMessage />
+                  <ProfileIcon />
+                  <button
+                    onClick={() => {
+                      logout();
+                      router.push("/auth/signin");
+                    }}
+                    className="bg-custom-green-b z-40 text-white px-3 py-2 rounded"
+                  >
+                    Log out
+                  </button></div>
+
               ) : (
                 <div className="z-40">
                   {isHome && (
@@ -279,6 +325,7 @@ const NavBar: React.FC = () => {
           <nav className="hover:text-custom-green-d hover:underline z-40">
             <Link href="/user/#product">Products</Link>
           </nav>
+
           <nav className="flex gap-8 align-center">
             {isAuthenticated ? (
               <button
@@ -321,7 +368,7 @@ const NavBar: React.FC = () => {
       )}
 
       {!isAuthenticated && isMenuOpen && (
-        <div className="sm:hidden bg-custom-green-a right-0 items-center h-screen fixed  flex flex-col float-end gap-10 p-10 flex-1 w-ful z-40 cursor-pointer list-none">
+        <div data-aos="fade-left" className="sm:hidden bg-custom-green-a right-0 items-center h-screen fixed  flex flex-col float-end gap-10 p-10 flex-1 w-ful z-40 cursor-pointer list-none">
           <div className="absolute inset-0">
             <Image
               src={navBG}

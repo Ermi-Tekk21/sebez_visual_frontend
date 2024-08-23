@@ -4,8 +4,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import BackgroundImage from "../../../../public/assets/images/hero.jpg";
-import useAuthStore from "@/stores/AuthStore";
-import { useRouter } from "next/navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "@/components/ui/use-toast";
 import DeleteModal from "@/components/global/DeleteModal";
@@ -129,14 +127,14 @@ const GetProducts: React.FC = () => {
           className="opacity-40 z-0"
         />
       </div>
-      <div className="bg-white z-10 p-8 rounded shadow-md w-full max-w-4xl">
+      <div className="bg-white z-10 p-8 rounded shadow-md w-full max-w-4xl opacity-80">
         <h2 className="text-2xl font-bold mb-6 text-center">Products</h2>
         {error && (
           <div className="mb-4 p-4 bg-red-100 text-red-600 border border-red-300 rounded">
             {error}
           </div>
         )}
-        <ScrollArea className="h-[500px] max-sm:[400px] rounded-md border">
+        <ScrollArea className="h-[400px] max-sm:[400px] rounded-md border">
           <table className="w-full table-auto overflow-x-scroll">
             <thead className="sticky top-0 bg-white bg-opacity-95">
               <tr>

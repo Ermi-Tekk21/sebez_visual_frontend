@@ -13,61 +13,52 @@ import Link from "next/link";
 import { useCart } from "@/stores/cart-store";
 import { useMemo } from "react";
 
-interface ProductCardProps {
-  id: string;
-  title: string;
-  image: string;
+
+interface Product {
+  category: string;
+  item_name: string;
+  imageUrl: string;
   price: number;
   description: string;
-  artist: string;
+  _id: string;
+}
+interface ProductCardProps {
+  product: Product;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
-  id,
-  title,
-  image,
-  price,
-  description,
-  artist,
-}: ProductCardProps) => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated); // Get isAuthenticated from useAuthStore
+
+
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const cart = useCart();
+
   const isAdded = useMemo(() => {
-    return cart.cartProducts.find((prod: { id: string }) => prod.id === id);
-  }, [cart.cartProducts, id]);
+    return cart.cartProducts.some((prod: Product) => prod._id === product._id);
+  }, [cart.cartProducts, product._id]);
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        {/* <CardDescription>by {artist}</CardDescription> */}
+        <CardTitle>{product.item_name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <Image src={image} alt={title} width={300} height={300} />
-        <p>{description}</p>
+        <Image src={product.imageUrl} alt={product.item_name} width={300} height={300} />
+        <p>{product.description}</p>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <p>{price} ETB</p>
+        <p>{product.price} ETB</p>
 
         {isAuthenticated ? (
-          <div className="bg-custom-green-b text-white px-3 py-2 rounded">
-            <button
-              onClick={() =>
-                isAdded
-                  ? cart.removeFromCart(id)
-                  : cart.addToCart({
-                      id,
-                      title,
-                      image,
-                      price,
-                      description,
-                      artist,
-                    })
-              }
-            >
-              {isAdded ? "remove from cart" : "add to cart"}
-            </button>
-          </div>
+          <button
+            className="bg-custom-green-b text-white px-3 py-2 rounded"
+            onClick={() =>
+              isAdded
+                ? cart.removeFromCart(product._id)
+                : cart.addToCart(product)
+            }
+          >
+            {isAdded ? "remove from cart" : "add to cart"}
+          </button>
         ) : (
           <Link href="/auth/signin">
             <button className="bg-custom-green-b text-white px-3 py-2 rounded">
@@ -81,3 +72,4 @@ const ProductCard: React.FC<ProductCardProps> = ({
 };
 
 export default ProductCard;
+

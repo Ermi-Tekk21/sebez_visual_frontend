@@ -17,7 +17,7 @@ import { cn } from "../../../src/lib/utils";
 import Image from "next/image";
 import cartSvg from "../../../public/assets/icons/cart.svg";
 
-interface CartProps { 
+interface CartProps {
   url?: string; // Make the URL prop optional
 }
 
@@ -25,14 +25,15 @@ const Cart: React.FC<CartProps> = ({ url }) => {
   const cart = useCart();
 
   const totalSum = (): number => {
-    let sum = 0;
-    cart.cartProducts.forEach((item: { totalPrice: number; }) => {
-      sum += item.totalPrice;
+    let sum: number = 0;
+    cart.cartProducts.map((item: { totalPrice: number; }) => {
+      sum += Number(item.totalPrice);
     });
     return sum;
   };
 
-  const sum = totalSum();
+  const OverAllsum: number = totalSum();
+  
   const pathname = usePathname();
   const ischeckout = pathname === "/user/checkout";
   return (
@@ -61,7 +62,7 @@ const Cart: React.FC<CartProps> = ({ url }) => {
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Here is your cart</SheetTitle>
-          <div className="h-screen overflow-y-auto pe-3">
+          <div className="h-[500px] overflow-y-auto pe-3">
             {cart.cartProducts.map((product: { id: React.Key | null | undefined; }) => (
               <CartProduct key={product.id} product={product} />
             ))}
@@ -86,7 +87,7 @@ const Cart: React.FC<CartProps> = ({ url }) => {
           {cart.cartProducts.length > 0 && (
             <div className="flex flex-col absolute bottom-0 left-0 w-full bg-slate-700 p-4  justify-between items-center text-white">
               <h4 className="text-white">
-                Total price: <span className="ml-auto">{sum} birr</span>
+                Total price: <span className="ml-auto">{Number(OverAllsum)} birr</span>
               </h4>
               <SheetTrigger asChild>
                 <Link

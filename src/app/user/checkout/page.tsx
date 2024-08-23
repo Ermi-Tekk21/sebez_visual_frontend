@@ -22,8 +22,9 @@ export default function CheckoutPage() {
   const [txRef, setTxRef] = useState<string>("");
 
   useEffect(() => {
+    // Calculate total sum and redirect if cart is empty
     const sum = cart.checkout.reduce(
-      (sum: number, item: { totalPrice: number }) => sum + item.totalPrice,
+      (sum: number, item: { totalPrice: number }) => sum + Number(item.totalPrice),
       0
     );
     setTotalSum(sum);
@@ -33,15 +34,16 @@ export default function CheckoutPage() {
   }, [cart.checkout, router]);
 
   useEffect(() => {
+    // Generate unique transaction reference
     const uniqueRef = `tx-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
     setTxRef(uniqueRef);
   }, []);
 
   const handleInputChange =
     (setter: React.Dispatch<React.SetStateAction<string>>) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setter(event.target.value);
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setter(event.target.value);
+      };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,7 +63,7 @@ export default function CheckoutPage() {
       });
       return;
     }
-    // Here you might handle other form submission logic if necessary
+    // Form is valid, handle submission
     e.currentTarget.submit();
   };
 
@@ -76,79 +78,49 @@ export default function CheckoutPage() {
           <span className="text-xl font-semibold animate-pulse">{totalSum} ETB</span>
         </div>
         <div className="h-[400px] overflow-y-auto pe-3">
-          {/* {cart.checkout.map((product) => ( */}
-
           {cart.checkout.map(
             (product: {
-              id: React.Key | null | undefined;
-              image: string | undefined;
-              title:
-                | string
-                | number
-                | bigint
-                | boolean
-                | React.ReactElement<
-                    any,
-                    string | React.JSXElementConstructor<any>
-                  >
-                | Iterable<React.ReactNode>
-                | Promise<React.AwaitedReactNode>
-                | null
-                | undefined;
-              amount:
-                | string
-                | number
-                | bigint
-                | boolean
-                | React.ReactElement<
-                    any,
-                    string | React.JSXElementConstructor<any>
-                  >
-                | Iterable<React.ReactNode>
-                | React.ReactPortal
-                | Promise<React.AwaitedReactNode>
-                | null
-                | undefined;
-              totalPrice:
-                | string
-                | number
-                | bigint
-                | boolean
-                | React.ReactElement<
-                    any,
-                    string | React.JSXElementConstructor<any>
-                  >
-                | Iterable<React.ReactNode>
-                | React.ReactPortal
-                | Promise<React.AwaitedReactNode>
-                | null
-                | undefined;
+              _id: React.Key | null | undefined;
+              imageUrl: string | undefined;
+              item_name: string | React.ReactElement | null | undefined;
+              category: string | React.ReactElement | null | undefined;
+              amount: string | number | null | undefined;
+              totalPrice: string | number | null | undefined;
             }) => (
               <div
-                key={product.id}
-                className="grid sm:grid-cols-2 gap-6 border border-gray-200 rounded-lg mb-4 p-4 items-center"
+                key={product._id}
+                className="grid sm:grid-cols-2 gap-6 border border-gray-200 rounded-lg bg-slate-100 my-4 p-4 items-center"
               >
                 <div className="px-4 py-6 bg-gray-100 rounded-md">
                   <img
-                    src={product.image}
-                    alt={String(product.title) ?? ""}
+                    src={product.imageUrl}
+                    alt={String(product.item_name) ?? ""}
                     className="w-full object-contain"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
+                  <div className="bg-white justify-between px-2 rounded-md border-[0.5px] shadow-sm flex items-center font-semibold text-gray-800">
+                    {product.item_name}<span className="text-xs font-extralight">(item's name)</span>
+                  </div>
+                  <div className="bg-white font-mono text-sm justify-between px-2 rounded-md border-[0.5px] shadow-sm flex items-center font-semibold text-gray-800">
+                    {product.category}<span className="text-xs font-extralight">(catagory)</span>
+                  </div>
                   <div className="flex items-center justify-between font-semibold text-gray-800">
-                    {product.title}
+
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="text-gray-500">Quantity</div>
-                    <span className="text-gray-800">{product.amount}</span>
+                  <div className="bg-white px-2 rounded-md border-[0.5px] shadow-sm flex flex-col  gap-4">
+                    <div className="flex justify-between">
+                      <div className="text-gray-500">Quantity</div>
+                      <span className="text-gray-800">{product.amount}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <p className="text-gray-500">Total Price</p>
+                      <span className="text-gray-800">
+                        {product.totalPrice} ETB
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex gap-6 mt-4">
-                    <p className="text-gray-500">Total Price</p>
-                    <span className="text-gray-800">
-                      {product.totalPrice} ETB
-                    </span>
-                  </div>
+
                 </div>
               </div>
             )
@@ -156,7 +128,6 @@ export default function CheckoutPage() {
         </div>
       </div>
       <div className="bg-white shadow-lg rounded-lg p-12 justify-center items-center m-auto align-center">
-       
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
           Complete your order
         </h2>
@@ -184,7 +155,7 @@ export default function CheckoutPage() {
                 <input
                   type="text"
                   placeholder="Last Name"
-                  className="px-4 py-3.5 bg-white text-gray-800 w-full te xt-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-800 outline-none"
+                  className="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-800 outline-none"
                   value={lastName}
                   onChange={handleInputChange(setLastName)}
                 />
@@ -263,7 +234,7 @@ export default function CheckoutPage() {
             state={state}
             zipCode={zipCode}
             txRef={txRef}
-            userId={""}
+            userId={""} // Consider handling user ID if necessary
           />
           <Button
             type="submit"
