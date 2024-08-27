@@ -91,7 +91,6 @@ const Profile = () => {
   const handleOpenModalEditProfile = () => {
     setModalOpenToEdit(true);
   };
-  console.log("user data loaded: ", userData);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-900">

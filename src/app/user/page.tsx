@@ -7,6 +7,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import LandingPage from "@/components/landingPage/landing-page";
 import ContactUsPage from "@/components/landingPage/contact-us";
+import { Suspense } from 'react';
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -53,7 +54,9 @@ const UserPage = () => {
   return (
     <div>
       <LandingPage />
-      <ProductPage />
+      <Suspense fallback={<div>Loading...</div>}>
+          <ProductPage />
+        </Suspense>
       <hr />
       <ContactUsPage />
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import ProductCard from "@/components/global/productCard";
-import { useSearchParams, useRouter, usePathname} from 'next/navigation'
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import {
   Carousel,
   CarouselContent,
@@ -28,8 +28,6 @@ interface Category {
   products: Product[];
 }
 
-
-
 const ProductPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("Drawings");
@@ -41,27 +39,19 @@ const ProductPage: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const isUser = pathname.includes("/user");
-  const newParams = searchParams.get('category')
+  useEffect(() => {
+    const newParams = searchParams.get("category");
+    const isUser = pathname.includes("/user");
 
-useEffect(()=>{
-  
-  if (newParams){
-     if (isUser) {
-      if(newParams){
+    if (newParams) {
+      if (isUser) {
         router.push("/user/#product");
-        setSelectedCategory(newParams)
-      }
-    }else{
-      if(newParams){
+      } else {
         router.push("/#product");
-        setSelectedCategory(newParams)
       }
+      setSelectedCategory(newParams);
     }
-  }
- 
-})
-
+  }, [searchParams, router, pathname]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -82,8 +72,9 @@ useEffect(()=>{
         const groupedCategories = groupProductsByCategory(data);
         setCategories(groupedCategories);
 
-        groupedCategories.forEach((category) => console.log("products::: ", category.products));
-
+        groupedCategories.forEach((category) =>
+          console.log("products::: ", category.products)
+        );
       } catch (error: any) {
         setError("Failed to fetch products...");
         console.error(error);
@@ -137,13 +128,17 @@ useEffect(()=>{
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-900">
         <div className="flex flex-col text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-10 animate-spin fill-blue-600 block mx-auto"
-          viewBox="0 0 24 24">
-          <path
-            d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"
-            data-original="#000000" />
-        </svg>
-        <p className="w-auto p-10 animate-bounce">Loading...</p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-10 animate-spin fill-blue-600 block mx-auto"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"
+              data-original="#000000"
+            />
+          </svg>
+          <p className="w-auto p-10 animate-bounce">Loading...</p>
         </div>
       </div>
     );
@@ -151,7 +146,10 @@ useEffect(()=>{
 
   if (empty) {
     return (
-      <div id="product" className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div
+        id="product"
+        className="flex items-center justify-center min-h-screen bg-gray-900"
+      >
         <span className="text-white font-semibold text-lg animate-bounce">
           no products added yet...
         </span>
@@ -161,7 +159,10 @@ useEffect(()=>{
 
   if (error) {
     return (
-      <div id="product" className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div
+        id="product"
+        className="flex items-center justify-center min-h-screen bg-gray-900"
+      >
         <span className="text-red-500 font-semibold text-lg animate-bounce">
           Error: {error}
         </span>
@@ -174,7 +175,13 @@ useEffect(()=>{
       <div data-aos="zoom-out-left">
         <div className="relative z-10 flex flex-col items-center justify-center">
           <h1 className="text-4xl font-serif text-center py-10">
-            Find Your Desired Product <span className="mx-10- text-sm font-thin">(use <span className="bg-slate-600 px-1 rounded-md">catagories</span> and <span className="bg-slate-600 px-1 rounded-md">slide</span> buttones)</span>
+            Find Your Desired Product{" "}
+            <span className="mx-10- text-sm font-thin">
+              (use{" "}
+              <span className="bg-slate-600 px-1 rounded-md">categories</span>{" "}
+              and <span className="bg-slate-600 px-1 rounded-md">slide</span>{" "}
+              buttones)
+            </span>
           </h1>
 
           <div className="flex justify-around">
@@ -188,10 +195,11 @@ useEffect(()=>{
                   <li
                     key={category.name}
                     onClick={() => handleCategorySelect(category.name)}
-                    className={`cursor-pointer py-2 px-4 mb-2 rounded-md hover:bg-green-600 ${selectedCategory === category.name
-                      ? "bg-green-300"
-                      : "bg-green-600"
-                      }`}
+                    className={`cursor-pointer py-2 px-4 mb-2 rounded-md hover:bg-green-600 ${
+                      selectedCategory === category.name
+                        ? "bg-green-300"
+                        : "bg-green-600"
+                    }`}
                   >
                     {category.name}
                   </li>
@@ -207,10 +215,7 @@ useEffect(()=>{
                       <CarouselItem key={index}>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                           {slide.map((product) => (
-                            <ProductCard
-                              key={product._id}
-                              product={product}
-                            />
+                            <ProductCard key={product._id} product={product} />
                           ))}
                         </div>
                       </CarouselItem>
