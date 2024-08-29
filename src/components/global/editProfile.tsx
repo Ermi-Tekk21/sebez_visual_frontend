@@ -81,8 +81,8 @@ const handleProfileImageChange = async ( changedProfileImageUrl: string) => {
         </svg>
 
         <h2 className="text-xl font-bold mb-8">Edit Your Profile</h2>
-        <div className="flex gap-6">
-          <div className="flex flex-col justify-center text-slate-50 hover:text-white rounded-md w-2/4 bg-indigo-950">
+        <div className="flex max-sm:flex-col gap-6">
+          <div className="flex flex-col justify-center text-slate-50 hover:text-white rounded-md sm:w-2/4 bg-indigo-950">
             <SingleImageUpload
             handleProfileImageChange={handleProfileImageChange} 
             />
@@ -91,7 +91,7 @@ const handleProfileImageChange = async ( changedProfileImageUrl: string) => {
             <div className="flex gap-5">
 
               <div className="flex flex-col gap-10">
-                <div className="flex gap-20">
+                <div className="flex max-sm:flex-col max-sm:gap-10 gap-20">
                   <div className="flex flex-col gap-8">
                     <div className="form-group">
                       <label

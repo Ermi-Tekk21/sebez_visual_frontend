@@ -20,15 +20,27 @@ interface ResMesCardProps {
 
 const ResMesCard: React.FC<ResMesCardProps> = ({ message }) => {
     const [details, setDetails] = useState<boolean>(false);
+    // console.log("Res:" + message.replayMessageId.message);
 
     return (
+        
         <div className='shadow-sm text-slate-900'>
-            <div className='bg-slate-50 border-[0.5px] border-blue-950 p-2 rounded-tr-lg'>
+            <div>
+               <div className='bg-slate-50 border-[0.5px] border-blue-950 p-2 rounded-tr-lg'>
                 <div className='flex flex-col items-end'>
                     <div className='text-sm w-3/4'><p className='text-xs text-center'>{message.reciver.name} | user</p>
+                    {message.replayMessageId && 
+                    (
                         <div className='border-[0.5px] border-indigo-950  px-2 rounded-md'>
                             {message.replayMessageId.message}
                         </div>
+                    )}
+                      {!message.replayMessageId && 
+                    (
+                        <div className='border-[0.5px] border-red-500 text-red-500  px-2 rounded-md'>
+                            message deleted
+                        </div>
+                    )}  
                     </div>
                     {details && (
                         <div className='text-xs flex pl-1 flex-col gap-2'>
@@ -61,7 +73,9 @@ const ResMesCard: React.FC<ResMesCardProps> = ({ message }) => {
                     className='border-b-[0.5px] border-l-[0.5px] border-r-[0.5px] border-red-500 px-2 py-1 rounded-b-md bg-red-500 text-white hover:font-semibold'>
                     Delete
                 </button> */}
+            </div>  
             </div>
+           
         </div>
     );
 };

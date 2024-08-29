@@ -11,9 +11,9 @@ const ProfileIcon: React.FC = () => {
 
 
   return (
-    <main>
+    <main className="z-40">
       <Link href="/user/Profile">
-        <Image src={Profile} alt="profile" width={30} height={30}  className="bg-white p-1 rounded-full"/>
+        <Image src={Profile} alt="profile" width={30} height={30} className="bg-white p-1 rounded-full" />
       </Link>
     </main>
   );

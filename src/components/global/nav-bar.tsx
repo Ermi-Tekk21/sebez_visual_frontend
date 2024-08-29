@@ -328,15 +328,19 @@ const NavBar: React.FC = () => {
 
           <nav className="flex gap-8 align-center">
             {isAuthenticated ? (
-              <button
-                onClick={() => {
-                  logout();
-                  router.push("/auth/signin");
-                }}
-                className="bg-custom-green-b z-40 text-white px-3 py-2 rounded"
-              >
-                Log out
-              </button>
+              <div className="flex flex-col gap-4 items-center">
+              <ResMessage />
+              <ProfileIcon />
+                <button
+                  onClick={() => {
+                    logout();
+                    router.push("/auth/signin");
+                  }}
+                  className="bg-custom-green-b z-40 text-white px-3 py-2 rounded"
+                >
+                  Log out
+                </button>
+              </div>
             ) : (
               <div className="z-40">
                 {isHome && (

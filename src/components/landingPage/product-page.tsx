@@ -184,7 +184,7 @@ const ProductPage: React.FC = () => {
             </span>
           </h1>
 
-          <div className="flex justify-around">
+          <div className="flex max-sm:flex-col max-sm:items-center justify-around">
             <div
               data-aos="flip-right"
               className="w-1/4 ml-4 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl bg-green-700 opacity-85 p-4 rounded-lg shadow-lg"
